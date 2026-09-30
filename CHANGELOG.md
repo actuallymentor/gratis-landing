@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2] - 2026-09-30
+
+### Changed
+
+- Replace promotional copy with factual project descriptions.
+- Simplify layout, remove decorative artwork, and use uniform project tiles.
+
 ## [1.0.1] - 2026-09-30
 
 ### Fixed

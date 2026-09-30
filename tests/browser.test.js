@@ -75,6 +75,6 @@ test( `directory is readable without JavaScript`, async () => {
     await page.setJavaScriptEnabled( false )
     await page.goto( base_url, { waitUntil: `networkidle0` } )
     assert.equal( await page.$$eval( `.project-card`, cards => cards.length ), 7 )
-    assert.match( await page.$eval( `h1`, el => el.textContent ), /A little curiosity/ )
+    assert.match( await page.$eval( `h1`, el => el.textContent ), /AI experiments/ )
     await page.setJavaScriptEnabled( true )
 } )

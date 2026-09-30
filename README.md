@@ -1,6 +1,6 @@
 # gratis.sh
 
-Mentor’s AI playground. Seven verified projects, a responsive directory, and locally hosted Montserrat/Nunito typography.
+Mentor’s AI playground. Seven verified projects with factual descriptions, a restrained responsive directory, and locally hosted Montserrat/Nunito typography.
 
 ## Local
 

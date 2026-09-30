@@ -1,10 +1,48 @@
 // Curated from the project repositories; see .notes/RESEARCH.md for verification.
 export const projects = [
-    { name: `AI`, domain: `ai.gratis.sh`, category: `AI & language`, kind: `chat`, description: `A little space for big questions. Private AI chat, running right on your own device.`, label: `Start a conversation` },
-    { name: `Reader`, domain: `reader.gratis.sh`, category: `Reading`, kind: `reader`, description: `Your next chapter, in another language. Read books with AI translations adapted to your level.`, label: `Open reader`, note: `Bring an API key` },
-    { name: `Transcribe`, domain: `transcribe.gratis.sh`, category: `Audio`, kind: `audio`, description: `Less replaying. More doing. Turn audio messages into text, right on your device.`, label: `Get transcribing` },
-    { name: `Video`, domain: `video.gratis.sh`, category: `Creative tools`, kind: `video`, description: `Good memories deserve a replay. Capture little moments and turn them into one shareable video.`, label: `Make something` },
-    { name: `Vitamin D`, domain: `vitd.gratis.sh`, category: `Everyday life`, kind: `sun`, description: `A little sunshine, a little science. Explore vitamin D estimates for your location.`, label: `Find your sunshine` },
-    { name: `Grapevine`, domain: `grapevine.gratis.sh`, category: `Discovery`, kind: `grapevine`, description: `Stay in the loop. Share community updates and catch up with AI-generated bulletins.`, label: `Explore Grapevine`, note: `Members only` },
-    { name: `Halo`, domain: `halo.gratis.sh`, category: `Wellbeing`, kind: `halo`, description: `A closer look at recovery. Explore your Oura trends and take a one-minute reaction test.`, label: `Explore Halo`, note: `Invite only` },
+    {
+        name: `AI Chat`,
+        domain: `ai.gratis.sh`,
+        category: `Browser-based AI`,
+        description: `Chat with language models running locally in your browser. Conversations stay on your device; works offline once the model is downloaded.`,
+    },
+    {
+        name: `Reader`,
+        domain: `reader.gratis.sh`,
+        category: `Language learning`,
+        description: `An EPUB reader with AI translations adapted to your language level. Uses OpenRouter for translation.`,
+        note: `Requires an OpenRouter API key`,
+    },
+    {
+        name: `Transcribe`,
+        domain: `transcribe.gratis.sh`,
+        category: `Speech to text`,
+        description: `Transcribe audio messages using Whisper. Speech recognition runs locally on your device.`,
+    },
+    {
+        name: `Video Journal`,
+        domain: `video.gratis.sh`,
+        category: `Video`,
+        description: `Record short video clips and combine them into a video journal for sharing. Video processing runs locally.`,
+    },
+    {
+        name: `Vitamin D Calculator`,
+        domain: `vitd.gratis.sh`,
+        category: `Calculator`,
+        description: `Estimate sun exposure time for vitamin D production based on your location.`,
+    },
+    {
+        name: `Grapevine`,
+        domain: `grapevine.gratis.sh`,
+        category: `Community`,
+        description: `Share voice and text updates with a community. AI generates bulletins and answers questions using the shared updates.`,
+        note: `Members only`,
+    },
+    {
+        name: `Halo`,
+        domain: `halo.gratis.sh`,
+        category: `Recovery tracking`,
+        description: `Track recovery trends from Oura data alongside a one-minute vigilance test.`,
+        note: `Invite-only beta`,
+    },
 ]
