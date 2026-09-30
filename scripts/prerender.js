@@ -9,7 +9,7 @@ const server = await createServer( { server: { middlewareMode: true } } )
 try {
     const { default: App } = await server.ssrLoadModule( `/src/App.jsx` )
     const html = await readFile( `dist/index.html`, `utf8` )
-    await writeFile( `dist/index.html`, html.replace( `<!--app-html-->`, renderToString( createElement( App ) ) ) )
+    await writeFile( `dist/index.html`, html.replace( `<!--app-html-->`, () => renderToString( createElement( App ) ) ) )
 } finally {
     await server.close()
 }
