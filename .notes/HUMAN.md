@@ -10,3 +10,4 @@
 - The brand accent is never used as a fill behind white text, so the known ≈2:1 contrast conflict does not arise here.
 - Open review suggestions, not applied: drop “AI playground” from the intro copy, and move text-size controls nearer the top. Copy and header placement are the user’s call.
 - 2026-10-02: User requested per-project illustrations, overriding the earlier no-artwork decision. Implemented as seeded abstract SVG at 16:9 in theme colors. Project order is now user-curated: Vitamin D, Reader, Video Journal, AI Chat, then the rest.
+- 2026-10-02: Preferences now favor animated artwork and retire 320ms content reveals. Tile art animates with CSS loops; tile arrival animation removed. Hero artwork remains an open opportunity, held back by the earlier no-hero-art request.

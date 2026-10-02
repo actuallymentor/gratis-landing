@@ -109,7 +109,6 @@ h2 { font-size: 1.625rem; letter-spacing: -.025em; }
     border-radius: .5rem;
     box-shadow: var(--shadow);
     transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
-    animation: arrive 320ms var(--ease) backwards;
 }
 .project-card:hover { background-color: color-mix(in srgb, var(--accent) 8%, var(--surface)); transform: translateY(-1px); box-shadow: var(--shadow-lift); }
 .project-card:active { transform: scale(.985); }
@@ -117,12 +116,46 @@ h2 { font-size: 1.625rem; letter-spacing: -.025em; }
 /* Generative art bleeds to the tile edges at a fixed 16:9 ratio */
 .project-art { display: block; width: calc(100% + 2 * var(--card-pad)); aspect-ratio: 16 / 9; height: auto; margin: calc(-1 * var(--card-pad)) calc(-1 * var(--card-pad)) var(--card-pad); background: var(--art-bg); border-bottom: 1px solid var(--line); }
 
-/* Short capped stagger as tiles arrive */
-.project-card:nth-child(2) { animation-delay: 60ms; }
-.project-card:nth-child(3) { animation-delay: 120ms; }
-.project-card:nth-child(4) { animation-delay: 180ms; }
-.project-card:nth-child(n+5) { animation-delay: 240ms; }
-@keyframes arrive { from { opacity: 0; transform: translateY(4px); } }
+/* ── Artwork motion ──
+   Each element combines an optional movement with an optional shade loop.
+   Period, phase and reach are seeded per element in ProjectArt.jsx.
+   Loops alternate (or spin a full turn) so they never visibly reset. */
+
+/* Motion settings must not inherit, or a shading grape would also sway with its bunch */
+@property --move { syntax: "*"; inherits: false; }
+@property --tint { syntax: "*"; inherits: false; }
+@property --move-easing { syntax: "*"; inherits: false; }
+@property --move-direction { syntax: "*"; inherits: false; }
+@property --reach { syntax: "*"; inherits: false; }
+
+.project-art [class*="art-"] {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation-name: var(--move, none), var(--tint, none);
+    animation-duration: var(--duration), calc(var(--duration) * 1.37);
+    animation-delay: var(--delay), var(--delay);
+    animation-timing-function: var(--move-easing, ease-in-out), ease-in-out;
+    animation-direction: var(--move-direction, alternate), alternate;
+    animation-iteration-count: infinite;
+    animation-play-state: paused;
+}
+.project-art.is-playing [class*="art-"] { animation-play-state: running; }
+
+.art-drift { --move: art-drift; }
+.art-bob { --move: art-bob; }
+.art-sway { --move: art-sway; transform-origin: 50% 0; }
+.art-pulse { --move: art-pulse; }
+.art-stretch { --move: art-stretch; }
+.art-spin { --move: art-spin; --move-easing: linear; --move-direction: normal; }
+.art-shade { --tint: art-shade; }
+
+@keyframes art-drift { to { transform: translateX(var(--reach, 6px)); } }
+@keyframes art-bob { to { transform: translateY(var(--reach, -3px)); } }
+@keyframes art-sway { from { transform: rotate(calc(var(--reach, 4deg) * -1)); } to { transform: rotate(var(--reach, 4deg)); } }
+@keyframes art-pulse { to { transform: scale(var(--reach, 1.06)); } }
+@keyframes art-stretch { to { transform: scaleY(var(--reach, .6)); } }
+@keyframes art-spin { to { transform: rotate(1turn); } }
+@keyframes art-shade { to { fill-opacity: .55; stroke-opacity: .55; } }
 
 .card-top { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: .75rem; font-size: .8125rem; color: var(--muted); margin-bottom: 1.25rem; }
 .card-copy h3 { font-size: 1.3125rem; line-height: 1.35; letter-spacing: -.03em; }
@@ -185,7 +218,8 @@ h2 { font-size: 1.625rem; letter-spacing: -.025em; }
 /* ── Motion and contrast preferences ── */
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
-    .project-card, .reading-controls button { transition: none; animation: none; }
+    .project-card, .reading-controls button { transition: none; }
+    .project-art [class*="art-"] { animation: none; }
     .project-card:hover, .project-card:active, .reading-controls button:hover:not(:disabled), .reading-controls button:active:not(:disabled) { transform: none; }
 }
 @media (forced-colors: active) {

@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.3.0] - 2026-10-02
+
+### Added
+
+- Animate tile artwork with gentle, independent seeded loops; pause offscreen and in hidden tabs.
+
+### Removed
+
+- Drop the tile arrival animation; its 320ms timing is retired in the design preferences.
+
 ## [1.2.0] - 2026-10-02
 
 ### Added

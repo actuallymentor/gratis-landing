@@ -101,6 +101,23 @@ test( `mobile layout and persistent text resizing`, async () => {
     await page.evaluate( () => localStorage.clear() )
 } )
 
+test( `artwork animates only on screen and stays still for reduced motion`, async () => {
+    await page.setViewport( { width: 390, height: 844 } )
+    await page.goto( base_url, { waitUntil: `networkidle0` } )
+
+    // Scroll the first tile into view: it plays, the far tiles stay paused
+    await page.evaluate( () => document.querySelector( `.project-art` ).scrollIntoView( { behavior: `instant` } ) )
+    await page.waitForFunction( () => document.querySelector( `.project-art` ).classList.contains( `is-playing` ) )
+    const playing = await page.$$eval( `.project-art`, svgs => svgs.map( svg => svg.classList.contains( `is-playing` ) ) )
+    assert.equal( playing.at( -1 ), false, `Offscreen artwork is paused` )
+
+    // Reduced motion removes artwork animation entirely
+    await page.emulateMediaFeatures( [ { name: `prefers-reduced-motion`, value: `reduce` } ] )
+    const names = await page.$$eval( `.project-art [class*="art-"]`, elements => [ ...new Set( elements.map( element => getComputedStyle( element ).animationName ) ) ] )
+    assert.deepEqual( names, [ `none` ] )
+    await page.emulateMediaFeatures( [ { name: `prefers-reduced-motion`, value: `no-preference` } ] )
+} )
+
 test( `dark theme follows the device and stays accessible`, async () => {
     await page.emulateMediaFeatures( [ { name: `prefers-color-scheme`, value: `dark` } ] )
     await page.setViewport( { width: 1440, height: 1100 } )
