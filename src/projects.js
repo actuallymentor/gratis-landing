@@ -1,4 +1,5 @@
 // Curated from the project repositories; see .notes/RESEARCH.md for verification.
+// `access` picks the status pill icon for projects with entry requirements.
 export const projects = [
     {
         name: `AI Chat`,
@@ -12,6 +13,7 @@ export const projects = [
         category: `Language learning`,
         description: `An EPUB reader with AI translations adapted to your language level. Uses OpenRouter for translation.`,
         note: `Requires an OpenRouter API key`,
+        access: `key`,
     },
     {
         name: `Transcribe`,
@@ -37,6 +39,7 @@ export const projects = [
         category: `Community`,
         description: `Share voice and text updates with a community. AI generates bulletins and answers questions using the shared updates.`,
         note: `Members only`,
+        access: `members`,
     },
     {
         name: `Halo`,
@@ -44,5 +47,6 @@ export const projects = [
         category: `Recovery tracking`,
         description: `Track recovery trends from Oura data alongside a one-minute vigilance test.`,
         note: `Invite-only beta`,
+        access: `invite`,
     },
 ]

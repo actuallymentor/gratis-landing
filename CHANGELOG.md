@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.1.0] - 2026-10-02
+
+### Added
+
+- Follow the device theme with Solarized-style dark surfaces.
+- Show access requirements as status pills with icons.
+- Add gentle tile hover lift and arrival motion; reduced motion disables it.
+
+### Changed
+
+- Align palette, heading weight, line height, and fallback fonts with the design tokens.
+- Use white tiles on the light page and Lucide icons.
+- Restyle text-size buttons as outline pills with 44px tap areas.
+
 ## [1.0.2] - 2026-09-30
 
 ### Changed

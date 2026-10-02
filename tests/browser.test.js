@@ -71,6 +71,17 @@ test( `mobile layout and persistent text resizing`, async () => {
     await page.evaluate( () => localStorage.clear() )
 } )
 
+test( `dark theme follows the device and stays accessible`, async () => {
+    await page.emulateMediaFeatures( [ { name: `prefers-color-scheme`, value: `dark` } ] )
+    await page.setViewport( { width: 1440, height: 1100 } )
+    await page.goto( base_url, { waitUntil: `networkidle0` } )
+    await page.screenshot( { path: `artifacts/desktop-dark.png`, fullPage: true } )
+    assert.equal( await page.$eval( `body`, el => getComputedStyle( el ).backgroundColor ), `rgb(0, 43, 54)` )
+    const { violations } = await new AxePuppeteer( page ).withTags( [ `wcag2a`, `wcag2aa`, `wcag21aa` ] ).analyze()
+    assert.deepEqual( violations.map( ( { id } ) => id ), [] )
+    await page.emulateMediaFeatures( [ { name: `prefers-color-scheme`, value: `light` } ] )
+} )
+
 test( `directory is readable without JavaScript`, async () => {
     await page.setJavaScriptEnabled( false )
     await page.goto( base_url, { waitUntil: `networkidle0` } )

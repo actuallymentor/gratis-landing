@@ -1,6 +1,6 @@
 # gratis.sh
 
-Mentor’s AI playground. Seven verified projects with factual descriptions, a restrained responsive directory, and locally hosted Montserrat/Nunito typography.
+Mentor’s AI playground. Seven verified projects with factual descriptions, a restrained responsive directory with light/dark themes, and locally hosted Montserrat/Nunito typography.
 
 ## Local
 
@@ -18,7 +18,7 @@ npm run build
 xvfb-run -a npm test
 ```
 
-Browser tests use sandboxed, headful Chrome. They check navigation, desktop/mobile layouts, accessibility, persistent text sizing, and prerendered content without JavaScript. Screenshots land in ignored `artifacts/`.
+Browser tests use sandboxed, headful Chrome. They check navigation, desktop/mobile layouts, dark theme, accessibility, persistent text sizing, and prerendered content without JavaScript. Screenshots land in ignored `artifacts/`.
 
 ## Projects
 
