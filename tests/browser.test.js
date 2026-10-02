@@ -111,6 +111,11 @@ test( `artwork animates only on screen and stays still for reduced motion`, asyn
     const playing = await page.$$eval( `.project-art`, svgs => svgs.map( svg => svg.classList.contains( `is-playing` ) ) )
     assert.equal( playing.at( -1 ), false, `Offscreen artwork is paused` )
 
+    // Grape bunches pivot from their stem top and grapes never inherit the sway
+    const sway = await page.$eval( `.art-sway`, bunch => ( { origin: getComputedStyle( bunch ).transformOrigin, child: getComputedStyle( bunch.querySelector( `circle` ) ).animationName } ) )
+    assert.match( sway.origin, / 0px$/, `Bunch rotates around its top edge` )
+    assert.equal( sway.child, `none` )
+
     // Reduced motion removes artwork animation entirely
     await page.emulateMediaFeatures( [ { name: `prefers-reduced-motion`, value: `reduce` } ] )
     const names = await page.$$eval( `.project-art [class*="art-"]`, elements => [ ...new Set( elements.map( element => getComputedStyle( element ).animationName ) ) ] )

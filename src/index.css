@@ -129,25 +129,34 @@ h2 { font-size: 1.625rem; letter-spacing: -.025em; }
 @property --reach { syntax: "*"; inherits: false; }
 
 .project-art [class*="art-"] {
+
+    /* Explicit resets: a fallback where @property is unsupported */
+    --move: none;
+    --tint: none;
+    --move-easing: ease-in-out;
+    --move-direction: alternate;
+    --reach: initial;
+
     transform-box: fill-box;
     transform-origin: center;
-    animation-name: var(--move, none), var(--tint, none);
+    animation-name: var(--move), var(--tint);
     animation-duration: var(--duration), calc(var(--duration) * 1.37);
     animation-delay: var(--delay), var(--delay);
-    animation-timing-function: var(--move-easing, ease-in-out), ease-in-out;
-    animation-direction: var(--move-direction, alternate), alternate;
+    animation-timing-function: var(--move-easing), ease-in-out;
+    animation-direction: var(--move-direction), alternate;
     animation-iteration-count: infinite;
     animation-play-state: paused;
 }
 .project-art.is-playing [class*="art-"] { animation-play-state: running; }
 
-.art-drift { --move: art-drift; }
-.art-bob { --move: art-bob; }
-.art-sway { --move: art-sway; transform-origin: 50% 0; }
-.art-pulse { --move: art-pulse; }
-.art-stretch { --move: art-stretch; }
-.art-spin { --move: art-spin; --move-easing: linear; --move-direction: normal; }
-.art-shade { --tint: art-shade; }
+/* Same specificity as the base rule and declared later, so these win */
+.project-art .art-drift { --move: art-drift; }
+.project-art .art-bob { --move: art-bob; }
+.project-art .art-sway { --move: art-sway; transform-origin: 50% 0; }
+.project-art .art-pulse { --move: art-pulse; }
+.project-art .art-stretch { --move: art-stretch; }
+.project-art .art-spin { --move: art-spin; --move-easing: linear; --move-direction: normal; }
+.project-art .art-shade { --tint: art-shade; }
 
 @keyframes art-drift { to { transform: translateX(var(--reach, 6px)); } }
 @keyframes art-bob { to { transform: translateY(var(--reach, -3px)); } }
