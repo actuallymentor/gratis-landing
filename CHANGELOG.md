@@ -14,6 +14,10 @@
 - Use white tiles on the light page and Lucide icons.
 - Restyle text-size buttons as outline pills with 44px tap areas.
 
+### Fixed
+
+- Count borders in text-size tap areas; keep access pills inside tiles at large text.
+
 ## [1.0.2] - 2026-09-30
 
 ### Changed

@@ -52,6 +52,29 @@ test( `desktop directory, real navigation, accessibility, and no hydration error
     assert.deepEqual( errors, [] )
 } )
 
+test( `text-size buttons have 44px tap areas that do not overlap`, async () => {
+    await page.setViewport( { width: 1440, height: 1100 } )
+    await page.goto( base_url, { waitUntil: `networkidle0` } )
+
+    // Probe real hit testing just inside each 44px target edge and between the buttons
+    const probe = await page.evaluate( () => {
+        const [ smaller, larger ] = document.querySelectorAll( `.reading-controls button` )
+        larger.scrollIntoView( { block: `center`, behavior: `instant` } )
+        const { left, right, top, bottom } = larger.getBoundingClientRect()
+        const middle_x = ( left + right ) / 2
+        const middle_y = ( top + bottom ) / 2
+        const half_target = 22 - .5
+        const hits = point => document.elementFromPoint( ...point ) === larger
+        const gap_x = ( smaller.getBoundingClientRect().right + left ) / 2
+        return {
+            vertical: [ [ middle_x, middle_y - half_target ], [ middle_x, middle_y + half_target ] ].every( hits ),
+            gap_owner: document.elementFromPoint( gap_x, middle_y )?.ariaLabel,
+        }
+    } )
+    assert.ok( probe.vertical, `Larger text button is tappable 22px above and below its center` )
+    assert.ok( [ `Decrease text size`, `Increase text size` ].includes( probe.gap_owner ), `Gap between buttons belongs to one of them` )
+} )
+
 test( `mobile layout and persistent text resizing`, async () => {
     await page.setViewport( { width: 390, height: 844 } )
     await page.goto( base_url, { waitUntil: `networkidle0` } )
@@ -68,6 +91,8 @@ test( `mobile layout and persistent text resizing`, async () => {
     await page.setViewport( { width: 320, height: 700 } )
     await page.addStyleTag( { content: `* { line-height: 1.5 !important; letter-spacing: .12em !important; word-spacing: .16em !important; } p { margin-bottom: 2em !important; }` } )
     assert.ok( await page.evaluate( () => document.documentElement.scrollWidth <= innerWidth ), `No overflow with narrow viewport and accessible text spacing` )
+    await page.evaluate( () => document.documentElement.style.fontSize = `200%` )
+    assert.ok( await page.$$eval( `.status-pill`, pills => pills.every( pill => pill.getBoundingClientRect().right <= pill.closest( `.project-card` ).getBoundingClientRect().right ) ), `Access pills stay inside their tiles at 200% text` )
     await page.evaluate( () => localStorage.clear() )
 } )
 

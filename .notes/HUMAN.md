@@ -8,3 +8,4 @@
 - Link and button focus keeps a 2px accent outline plus the soft halo. A halo alone fails 3:1 focus contrast on the light page. Review if a rimless focus ring is wanted.
 - Monospace for the wordmark, eyebrow and domains is a project exception to the Nunito/Montserrat defaults. It fits the programmer-directory tone.
 - The brand accent is never used as a fill behind white text, so the known ≈2:1 contrast conflict does not arise here.
+- Open review suggestions, not applied: drop “AI playground” from the intro copy, and move text-size controls nearer the top. Copy and header placement are the user’s call.
