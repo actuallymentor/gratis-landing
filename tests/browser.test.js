@@ -46,6 +46,7 @@ test( `desktop directory, real navigation, accessibility, and no hydration error
     assert.deepEqual( names.slice( 0, 4 ), [ `Vitamin D Calculator`, `Reader`, `Video Journal`, `AI Chat` ] )
     const art_ratios = await page.$$eval( `.project-art`, svgs => svgs.map( svg => svg.getBoundingClientRect() ).map( ( { width, height } ) => Math.round( width / height * 100 ) / 100 ) )
     assert.ok( art_ratios.length === 7 && art_ratios.every( ratio => ratio === 1.78 ), `Every tile has 16:9 artwork` )
+    assert.ok( await page.$$eval( `.project-art`, svgs => svgs.every( svg => svg.querySelectorAll( `circle, rect, path, line` ).length > 3 ) ), `Every artwork draws shapes` )
     await page.screenshot( { path: `artifacts/desktop.png`, fullPage: true } )
     await page.click( `.primary-link` )
     await page.waitForFunction( () => location.hash === `#projects` )
@@ -116,5 +117,10 @@ test( `directory is readable without JavaScript`, async () => {
     await page.goto( base_url, { waitUntil: `networkidle0` } )
     assert.equal( await page.$$eval( `.project-card`, cards => cards.length ), 7 )
     assert.match( await page.$eval( `h1`, el => el.textContent ), /AI experiments/ )
+    const prerendered_art = await page.$$eval( `.project-art`, svgs => svgs.map( svg => svg.innerHTML ) )
+
+    // Seeded art must match exactly once the client hydrates
     await page.setJavaScriptEnabled( true )
+    await page.goto( base_url, { waitUntil: `networkidle0` } )
+    assert.deepEqual( await page.$$eval( `.project-art`, svgs => svgs.map( svg => svg.innerHTML ) ), prerendered_art )
 } )
