@@ -1,4 +1,5 @@
 import { ArrowDown, ArrowUpRight, Info, KeyRound, Lock, Users } from 'lucide-react'
+import ProjectArt from './components/atoms/ProjectArt.jsx'
 import ReadingControls from './components/molecules/ReadingControls.jsx'
 import { projects } from './projects.js'
 
@@ -48,7 +49,8 @@ export default function App() {
                 </div>
 
                 <div className="project-grid">
-                    { projects.map( ( { name, domain, category, description, note, access } ) => <a className="project-card" href={ `https://${ domain }` } key={ domain }>
+                    { projects.map( ( { name, domain, category, description, note, access, art } ) => <a className="project-card" href={ `https://${ domain }` } key={ domain }>
+                        <ProjectArt motif={ art } seed={ domain } />
                         <div className="card-top">
                             <span>{ category }</span>
                             <ArrowUpRight { ...icon_props } />

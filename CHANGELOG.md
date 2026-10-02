@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.2.0] - 2026-10-02
+
+### Added
+
+- Add seeded abstract 16:9 artwork to each project tile, themed per project.
+
+### Changed
+
+- Reorder projects: Vitamin D Calculator, Reader, Video Journal, AI Chat, then the rest.
+
 ## [1.1.0] - 2026-10-02
 
 ### Added

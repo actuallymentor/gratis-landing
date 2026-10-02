@@ -22,7 +22,7 @@ Browser tests use sandboxed, headful Chrome. They check navigation, desktop/mobi
 
 ## Projects
 
-Edit `src/projects.js`. Confirm destinations and access requirements before listing them. Current live projects use `*.gratis.sh`; tested `*.gratis.ai` equivalents did not resolve (2026-09-30).
+Edit `src/projects.js`; array order is display order. Each project's `art` picks a motif in `src/components/atoms/ProjectArt.jsx`. Confirm destinations and access requirements before listing them. Current live projects use `*.gratis.sh`; tested `*.gratis.ai` equivalents did not resolve (2026-09-30).
 
 ## Deployment
 

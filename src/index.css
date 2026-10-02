@@ -18,6 +18,10 @@
     --tint: rgb(126 192 208 / .1);
     --tint-strong: rgb(126 192 208 / .2);
     --halo: rgb(126 192 208 / .27);
+    --coral: #e07c5a;
+    --gold: #f0c040;
+    --art-bg: #eef5f7;
+    --art-ink: #1a1a2e;
     --shadow: 0 1px 2px rgb(26 26 46 / .04);
     --shadow-lift: 0 6px 18px rgb(26 26 46 / .07);
 
@@ -35,6 +39,8 @@
         --tint: rgb(126 192 208 / .08);
         --tint-strong: rgb(126 192 208 / .16);
         --halo: rgb(126 192 208 / .25);
+        --art-bg: #0b3f4c;
+        --art-ink: #e6ecf0;
         --shadow: 0 1px 2px rgb(0 0 0 / .15);
         --shadow-lift: 0 6px 18px rgb(0 0 0 / .25);
     }
@@ -95,7 +101,9 @@ h2 { font-size: 1.625rem; letter-spacing: -.025em; }
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 1.5rem;
+    --card-pad: 1.5rem;
+    padding: var(--card-pad);
+    overflow: hidden;
     background: var(--surface);
     border: 1px solid var(--line);
     border-radius: .5rem;
@@ -105,6 +113,9 @@ h2 { font-size: 1.625rem; letter-spacing: -.025em; }
 }
 .project-card:hover { background-color: color-mix(in srgb, var(--accent) 8%, var(--surface)); transform: translateY(-1px); box-shadow: var(--shadow-lift); }
 .project-card:active { transform: scale(.985); }
+
+/* Generative art bleeds to the tile edges at a fixed 16:9 ratio */
+.project-art { display: block; width: calc(100% + 2 * var(--card-pad)); aspect-ratio: 16 / 9; height: auto; margin: calc(-1 * var(--card-pad)) calc(-1 * var(--card-pad)) var(--card-pad); background: var(--art-bg); border-bottom: 1px solid var(--line); }
 
 /* Short capped stagger as tiles arrive */
 .project-card:nth-child(2) { animation-delay: 60ms; }
@@ -166,7 +177,7 @@ h2 { font-size: 1.625rem; letter-spacing: -.025em; }
     .hero { padding-block: 3rem; }
     .hero-description { font-size: 1rem; }
     .project-grid { grid-template-columns: minmax(0, 1fr); }
-    .project-card { padding: 1.25rem; }
+    .project-card { --card-pad: 1.25rem; }
     .site-footer { flex-wrap: wrap; margin-top: 2.5rem; }
     .footer-links { flex-wrap: wrap; }
 }
